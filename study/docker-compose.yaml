@@ -17,6 +17,7 @@ services:
       MYSQL_DATABASE: wordpress
       MYSQL_ROOT_PASSWORD: "coffee"
     volumes:
+      - ./mysql:var/lib/mysql
       - ./mysql:/var/lib/mysql
 
 
