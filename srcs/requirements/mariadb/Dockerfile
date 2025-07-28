@@ -1,17 +1,18 @@
-FROM debian:buster
+FROM debian:bullseye
 
 # Atualizar o nosso sistema debian
 RUN apt-get update && apt-get install -y mariadb-server
 
 # TEMPORARIO
-ENV db1_name=wordpress
-ENV db1_user=dpetrukh
-ENV db1_pwd=helloworld
+ENV SSQL_DATABASE=wordpress
+ENV SSQL_USER=dpetrukh
+ENV SSQL_SUN=helloworld
+ENV SSQL_ROOT_SUN=roothelloblyat
 # TEMPORARIO
 
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 
-COPY ./tools/script.sh /
+COPY ./tools/script.sh /script.sh
 RUN chmod +x /script.sh
 
 # Define o entrypoint como o script customizado
