@@ -1,6 +1,5 @@
 FROM debian:bullseye
 
-
 RUN apt update && apt -y upgrade
 
 RUN apt install nginx -y

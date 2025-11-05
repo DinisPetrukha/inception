@@ -1,23 +1,136 @@
-version: "3"
+version: 3
+
 services:
-  wordpress:
-    image: wordpress
-    ports:
-      - "8089:80"
-    depends_on:
-      - mysql
-    environment:
-      WORDPRESS_DB_HOST: mysql
-      WORDPRESS_DB_USER: root
-      WORDPRESS_DB_PASSWORD: "coffee"
-      WORDPRESS_DB_NAME: wordpress
-  mysql:
-    image: "mysql:5.7"
-    environment:
-      MYSQL_DATABASE: wordpress
-      MYSQL_ROOT_PASSWORD: "coffee"
+  mariadb:
+    build:
+      context: ./requirements/mariadb
+    image: mariadb:42
+    container_name: mariadb
+    restart: unless-stopped
     volumes:
-      - ./mysql:var/lib/mysql
-      - ./mysql:/var/lib/mysql
+      # Connect the External Persistent volume with internal volume of MariaDB
+      - mariadb_data:/var/lib/mysql
+    networks:
+      # Network for the internal connection between services
+      - inception
+    secrets:
+      - db_name
+      - db_user
+      - db_password
+      - db_root_password
+
+  wordpress:
+    build:
+      context: ./requirements/wordpress
+      args:
+        PHP_FPM_PORT: ${PHP_FPM_PORT}
+    image: wordpress:42
+    container_name: wordpress
+    restart: unless-stopped
+    depends_on:
+      - mariadb
+    volumes:
+      # Where index.php files are located
+      - wordpress_data:/var/www/html
+    networks:
+      # Network for the internal connection between services
+      - inception
+    env_file: .env
+    secrets:
+      - db_name
+      - db_user
+      - db_password
+      - wp_admin_user
+      - wp_admin_password
+      - wp_admin_email
+      - wp_user
+      - wp_user_password
+
+  nginx:
+    build:
+      context: ./requirements/nginx
+      args:
+        NGINX_PORT: ${NGINX_PORT}
+    image: nginx:42
+    container_name: nginx
+    restart: unless-stopped
+    depends_on:
+      - wordpress
+    ports:
+      # Connect the port 443 with the external world
+      - "${NGINX_PORT}:443"
+    volumes:
+      # Same volume as wordpress to connect the files
+      - wordpress_data:/var/www/html
+    networks:
+      - inception
+    env_fice: .env
+
+# Network definition
+networks:
+  inception:
+    # Isolate internal network of the external world
+    driver: bridge
+    name: inception_network
+
+# Volumes definition, setting the folders in our machine that will share memory
+volumes:
+  wordpress_data:
+    driver: local # Local directory
+    driver_opts:
+      o: bind     # Conection Bind
+      type: none  # Filesystem
+      device: home/data/dpetrukh/wordpress # Local path to the storage directory
+
+  mariadb_data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/dpetrukh/data/mariadb
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# version: "3"
+# services:
+#   wordpress:
+#     image: wordpress
+#     ports:
+#       - "8089:80"
+#     depends_on:
+#       - mysql
+#     environment:
+#       WORDPRESS_DB_HOST: mysql
+#       WORDPRESS_DB_USER: root
+#       WORDPRESS_DB_PASSWORD: "coffee"
+#       WORDPRESS_DB_NAME: wordpress
+#   mysql:
+#     image: "mysql:5.7"
+#     environment:
+#       MYSQL_DATABASE: wordpress
+#       MYSQL_ROOT_PASSWORD: "coffee"
+#     volumes:
+#       - ./mysql:var/lib/mysql
+#       - ./mysql:/var/lib/mysql
 
 
