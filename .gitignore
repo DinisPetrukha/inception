@@ -1,2 +1,6 @@
-study/mysql
-/study/home
+# Ou mais específico:
+/home/dpetrukh/data/
+
+# Outras pastas comuns a ignorar
+study/mysql/
+study/home/
