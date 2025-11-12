@@ -28,7 +28,7 @@ RUN openssl req -x509 \
 COPY conf/default.conf /etc/nginx/conf.d/default.conf
 
 # TEST FILE JUST FOR TESTING
-RUN echo "<h1>TEST: NGINX is tunning securely on Debain!</h1>" > /var/www/html/index.html
+#RUN echo "<h1>TEST: NGINX is tunning securely on Debain!</h1>" > /var/www/html/index.html
 
 EXPOSE ${NGINX_PORT}
 

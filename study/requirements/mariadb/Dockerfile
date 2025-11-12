@@ -12,7 +12,7 @@ RUN apt-get clean && \
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 
 # Runtime MariaDB directory
-RUN mkdir -p /run/mysql
+RUN mkdir -p /run/mysqld
 
 # Copy init script to system executable location
 COPY tools/init.sh /usr/local/bin/init.sh

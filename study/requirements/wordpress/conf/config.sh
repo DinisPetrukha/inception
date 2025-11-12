@@ -13,7 +13,7 @@ WP_ADMIN_EMAIL=$(cat /run/secrets/wp_admin_email)
 WP_USER=$(cat /run/secrets/wp_user)
 WP_USER_PASSWORD=$(cat /run/secrets/wp_user_password)
 
-# Set domain with htpps:// before
+# Set domain with https:// before
 WP_URL="https://${DOMAIN_URL}"
 # If WP-TITLE empty, set 'WordPress Site' as title
 TITLE="${WP_TITLE:-WordPress Site}"

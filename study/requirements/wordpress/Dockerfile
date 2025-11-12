@@ -33,7 +33,7 @@ RUN wp core download --allow-root
 # Document that the container listens on port 9000
 EXPOSE ${PHP_FPM_PORT}
 
-COPY tools/config.sh /usr/local/bin/config.sh
+COPY conf/config.sh /usr/local/bin/config.sh
 
 RUN chmod +x /usr/local/bin/config.sh
 
