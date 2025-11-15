@@ -21,8 +21,8 @@ WP_USER_PASSWORD_VAL="SenhaNormalWP"
 # --- 2. CRIAR ESTRUTURA E PASTA SECRETS ---
 SECRETS_DIR="./secrets"
 
-echo "A criar a pasta de segredos em: $SECRETS_DIR"
-mkdir -p "$SECRETS_DIR"
+# echo "A criar a pasta de segredos em: $SECRETS_DIR"
+# mkdir -p "$SECRETS_DIR"
 
 # --- 3. CRIAR OS FICHEIROS SECRETS ---
 
@@ -36,6 +36,4 @@ echo "$WP_ADMIN_EMAIL_VAL"  > "$SECRETS_DIR/wpAdminEmail.txt"
 echo "$WP_USER_VAL"         > "$SECRETS_DIR/wpUser.txt"
 echo "$WP_USER_PASSWORD_VAL" > "$SECRETS_DIR/wpUserPassword.txt"
 
-echo "✅ Todos os 9 ficheiros de secrets foram criados com sucesso!"
-echo "---"
-echo "AVISO: Verifica os ficheiros em $SECRETS_DIR e altera as senhas genéricas!"
+echo "✅ Todos os 9 secrets foram atualizados com sucesso!"

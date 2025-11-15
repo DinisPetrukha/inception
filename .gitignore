@@ -2,5 +2,5 @@
 /home/dpetrukh/data/
 
 # Outras pastas comuns a ignorar
-study/mysql/
-study/home/
+srcs/mysql/
+srcs/home/
