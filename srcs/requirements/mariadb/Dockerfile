@@ -23,7 +23,10 @@ RUN chmod +x /usr/local/bin/init.sh
 RUN chown -R mysql:mysql /etc/mysql /var/lib/mysql /run/mysqld \
 	&& chmod 755 /run/mysqld
 
-USER mysql
+# USER mysqld
+
+RUN ls -la /usr/local/bin/init.sh
 
 # Set entrypoint to our script
-CMD ["init.sh"]
+# CMD ["init.sh"]
+CMD ["bash", "/usr/local/bin/init.sh"]
