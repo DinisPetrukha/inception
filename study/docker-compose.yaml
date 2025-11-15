@@ -76,7 +76,7 @@ volumes:
     driver_opts:
       o: bind     # Conection Bind
       type: none  # Filesystem
-      device: /home/data/dpetrukh/wordpress # Local path to the storage directory
+      device: /home/dpetrukh/data/wordpress # Local path to the storage directory
   mariadb_data:
     driver: local
     driver_opts:
